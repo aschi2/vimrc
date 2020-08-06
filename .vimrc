@@ -69,6 +69,10 @@ autocmd BufWritePre *.py,*.pyw,*.c,*.h  %s/\s\+$//e
 set encoding=utf-8
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_auto_trigger=1
+
+
+
 " NERDTREE UI
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
