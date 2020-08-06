@@ -1,9 +1,15 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+	  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+	      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+
 "Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'junegunn/vim-github-dashboard'
 Plug 'tmhedberg/SimpylFold'
-Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-syntastic/syntastic'
 Plug 'kien/ctrlp.vim'
@@ -11,11 +17,24 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'jpalardy/vim-slime'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'yegappan/taglist', { 'on': [ 'Tlist', 'TlistOpen' ] }
+Plug 'jnurmine/Zenburn'
 call plug#end()
 
-let g:UltiSnipsExpandTrigger="<space>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+colorscheme zenburn
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+
+" Utilsnips
+let g:UltiSnipsExpandTrigger="<C-space>"
+let g:UltiSnipsJumpForwardTrigger="<C-space>"
+let g:UltiSnipsJumpBackwardTrigger="<A-space>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -24,10 +43,12 @@ let g:UltiSnipsEditSplit="vertical"
 let python_highlight_all=1
 syntax on
 
+
 set nu
+set rnu
 
 :let mapleader = " "
-:highlight BadWhitespace ctermfg=16 ctermbg=253 guifg=#000000 guibg=#F8F8F0
+
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -44,7 +65,6 @@ nnoremap <space> za
 
 
 " Flag Unnecessary Whitespace
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 autocmd BufWritePre *.py,*.pyw,*.c,*.h  %s/\s\+$//e
 set encoding=utf-8
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -55,6 +75,10 @@ let NERDTreeDirArrows = 1
 " Open NERDTree with Ctrl M
 nnoremap <Leader>f :NERDTreeToggle<Enter>
 nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
+
 
 
 "python with virtualenv support
@@ -66,3 +90,11 @@ if 'VIRTUAL_ENV' in os.environ:
   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
   execfile(activate_this, dict(__file__=activate_this))
 EOF
+
+
+
+let g:slime_python_ipython = 1
+let g:slime_target="tmux"
+
+
+let Tlist_Exit_OnlyWindow = 1
