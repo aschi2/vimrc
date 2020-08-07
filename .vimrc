@@ -101,4 +101,18 @@ let g:slime_python_ipython = 1
 let g:slime_target="tmux"
 
 
+" Exit Taglist if only window
 let Tlist_Exit_OnlyWindow = 1
+
+
+" Fix tmux colors
+if &term =~ '256color'
+    " Disable Background Color Erase (BCE) so that color schemes
+    " work properly when Vim is used inside tmux and GNU screen
+    set t_ut=
+endif
+
+set t_Co=256
+ 
+
+
