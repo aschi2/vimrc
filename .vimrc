@@ -52,6 +52,22 @@ set rnu
 :let mapleader = " "
 
 
+" Start empty buffers in insert mode
+function InsertIfEmpty()
+    if @% == ""
+        " No filename for current buffer
+        startinsert
+    elseif filereadable(@%) == 0
+        " File doesn't exist yet
+        startinsert
+    elseif line('$') == 1 && col('$') == 1
+        " File is empty
+        startinsert
+    endif
+endfunction
+
+au VimEnter * call InsertIfEmpty()
+
 "split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -100,7 +116,10 @@ EOF
 
 
 let g:slime_python_ipython = 1
+" Comment in for  tmux
 let g:slime_target="tmux"
+" Comment in for vimterminal
+" let g:slime_target="vimterminal"
 
 
 " Exit Taglist if only window
