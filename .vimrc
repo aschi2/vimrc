@@ -10,7 +10,7 @@ Plug 'tpope/vim-sensible'
 Plug 'junegunn/vim-github-dashboard'
 Plug 'tmhedberg/SimpylFold'
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe' "Don't Forget to Compile!
 Plug 'vim-syntastic/syntastic'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
@@ -21,8 +21,8 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'jpalardy/vim-slime'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'yegappan/taglist', { 'on': [ 'Tlist', 'TlistOpen' ] }
-Plug 'jnurmine/Zenburn'
+Plug 'yegappan/taglist', { 'on': [ 'Tlist', 'TlistOpen' ] } "Don't forget to install ctags!
+Plug 'jnurmine/Zenburn' "Dont forget to add export TERM=xterm-256color to bashrc or zshrc
 call plug#end()
 
 colorscheme zenburn
@@ -105,8 +105,7 @@ let g:slime_target="tmux"
 let Tlist_Exit_OnlyWindow = 1
 
 
-" Fix tmux color dont forget to add export TERM=xterm-256color to bashrc or
-" zshrc file!s
+" Fix tmux color !
 if &term =~ '256color'
     " Disable Background Color Erase (BCE) so that color schemes
     " work properly when Vim is used inside tmux and GNU screen
