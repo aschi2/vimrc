@@ -105,7 +105,8 @@ let g:slime_target="tmux"
 let Tlist_Exit_OnlyWindow = 1
 
 
-" Fix tmux colors
+" Fix tmux color dont forget to add export TERM=xterm-256color to bashrc or
+" zshrc file!s
 if &term =~ '256color'
     " Disable Background Color Erase (BCE) so that color schemes
     " work properly when Vim is used inside tmux and GNU screen
