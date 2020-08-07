@@ -25,6 +25,8 @@ Plug 'yegappan/taglist', { 'on': [ 'Tlist', 'TlistOpen' ] } "Don't forget to ins
 Plug 'jnurmine/Zenburn' "Dont forget to add export TERM=xterm-256color to bashrc or zshrc
 call plug#end()
 
+set ignorecase
+set smartcase
 colorscheme zenburn
 
 let g:airline#extensions#tabline#enabled = 1
