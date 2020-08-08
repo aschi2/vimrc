@@ -48,6 +48,10 @@ syntax on
 
 set nu
 set rnu
+:autocmd InsertEnter * set cul
+:autocmd InsertLeave * set nocul
+
+
 
 :let mapleader = " "
 
