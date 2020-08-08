@@ -28,7 +28,6 @@ call plug#end()
 
 set ignorecase
 set smartcase
-colorscheme zenburn
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -140,5 +139,6 @@ endif
 
 set t_Co=256
  
+colorscheme zenburn
 
 
