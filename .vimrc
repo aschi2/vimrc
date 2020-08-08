@@ -23,6 +23,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'yegappan/taglist', { 'on': [ 'Tlist', 'TlistOpen' ] } "Don't forget to install ctags!
 Plug 'jnurmine/Zenburn' "Dont forget to add export TERM=xterm-256color to bashrc or zshrc
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 set ignorecase
@@ -72,11 +73,11 @@ endfunction
 
 au VimEnter * call InsertIfEmpty()
 
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+""split navigations
+"nnoremap <C-J> <C-W><C-J>
+"nnoremap <C-K> <C-W><C-K>
+"nnoremap <C-L> <C-W><C-L>
+"nnoremap <C-H> <C-W><C-H>
 
 
 " Enable folding
