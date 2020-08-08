@@ -24,6 +24,9 @@ Plug 'tpope/vim-commentary'
 Plug 'yegappan/taglist', { 'on': [ 'Tlist', 'TlistOpen' ] } "Don't forget to install ctags!
 Plug 'jnurmine/Zenburn' "Dont forget to add export TERM=xterm-256color to bashrc or zshrc
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-repeat'
+Plug 'vim-test/vim-test'
+Plug 'christoomey/vim-system-copy'
 call plug#end()
 
 set ignorecase
