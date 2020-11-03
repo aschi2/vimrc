@@ -27,6 +27,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-repeat'
 Plug 'vim-test/vim-test'
 Plug 'christoomey/vim-system-copy'
+Plug 'stephpy/vim-yaml'
 call plug#end()
 
 set ignorecase
