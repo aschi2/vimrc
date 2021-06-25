@@ -31,10 +31,10 @@ Plug 'stephpy/vim-yaml'
 Plug 'sheerun/vim-polyglot'
 Plug 'Chiel92/vim-autoformat'
 Plug 'jiangmiao/auto-pairs'
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 
-au BufWrite * :Autoformat
 
 let g:formatters_python = ['black']
 
@@ -115,13 +115,13 @@ let g:ycm_auto_trigger=1
 
 
 
-" NERDTREE UI
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-" Open NERDTree with Ctrl M
-nnoremap <Leader>f :NERDTreeToggle<Enter>
-nnoremap <silent> <Leader>v :NERDTreeFind<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" " NERDTREE UI
+" let NERDTreeMinimalUI = 1
+" let NERDTreeDirArrows = 1
+" " Open NERDTree with Ctrl M
+" nnoremap <Leader>f :NERDTreeToggle<Enter>
+" nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
 let g:slime_python_ipython = 1
@@ -153,14 +153,15 @@ au InsertLeave * silent execute "!echo -en \<esc>[2 q"
 
 
 "python with virtualenv support
-python3 << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-	project_base_dir = os.environ['VIRTUAL_ENV']
-	activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-	execfile(activate_this, dict(__file__=activate_this))
-	EOF
+" python3 << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"		project_base_dir = os.environ['VIRTUAL_ENV']
+"		activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"		execfile(activate_this, dict(__file__=activate_this))
+"		EOF
 
-
+" else:
+"		EOF
 
