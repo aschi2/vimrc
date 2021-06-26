@@ -7,10 +7,8 @@ endif
 "Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
-Plug 'junegunn/vim-github-dashboard'
 Plug 'tmhedberg/SimpylFold'
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-Plug 'ycm-core/YouCompleteMe' "Don't Forget to Compile!
 Plug 'vim-syntastic/syntastic'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
@@ -23,7 +21,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'yegappan/taglist', { 'on': [ 'Tlist', 'TlistOpen' ] } "Don't forget to install ctags!
 Plug 'jnurmine/Zenburn' "Dont forget to add export TERM=xterm-256color to bashrc or zshrc
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-repeat'
 Plug 'vim-test/vim-test'
 Plug 'christoomey/vim-system-copy'
@@ -32,6 +29,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Chiel92/vim-autoformat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'easymotion/vim-easymotion'
+Plug 'Valloric/YouCompleteMe' "Don't forget to compile!"
 call plug#end()
 
 
