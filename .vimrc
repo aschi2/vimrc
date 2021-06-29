@@ -10,7 +10,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tmhedberg/SimpylFold'
 Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'vim-syntastic/syntastic'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'SirVer/ultisnips'
@@ -90,11 +90,11 @@ endfunction
 
 au VimEnter * call InsertIfEmpty()
 
-""split navigations
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 
 " Enable folding
@@ -113,13 +113,13 @@ let g:ycm_auto_trigger=1
 
 
 
-" " NERDTREE UI
-" let NERDTreeMinimalUI = 1
-" let NERDTreeDirArrows = 1
-" " Open NERDTree with Ctrl M
-" nnoremap <Leader>f :NERDTreeToggle<Enter>
-" nnoremap <silent> <Leader>v :NERDTreeFind<CR>
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" NERDTREE UI
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+" Open NERDTree with Ctrl M
+nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
 let g:slime_python_ipython = 1
