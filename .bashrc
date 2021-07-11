@@ -239,13 +239,8 @@ unset __conda_setup
 
 #fix tmux colors
 TERM=xterm-256color
-
-
-
-
-
-
-
-
-
-
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOROOT:$GOPATH:$GOBIN
+export PATH=$PATH:/usr/local/go/bin

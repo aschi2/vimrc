@@ -30,11 +30,12 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'Valloric/YouCompleteMe' "Don't forget to compile!"
+Plug 'FooSoft/vim-argwrap/'
 call plug#end()
 
 
 
-let g:formatters_python = ['black']
+let g:formatters_python = ['autopep8']
 
 let g:python_highlight_all = 1
 
@@ -74,27 +75,27 @@ set rnu
 :let mapleader = " "
 
 
-" Start empty buffers in insert mode
-function InsertIfEmpty()
-	if @% == ""
-		" No filename for current buffer
-		startinsert
-	elseif filereadable(@%) == 0
-		" File doesn't exist yet
-		startinsert
-	elseif line('$') == 1 && col('$') == 1
-		" File is empty
-		startinsert
-	endif
-endfunction
+" " Start empty buffers in insert mode
+" function InsertIfEmpty()
+" 	if @% == ""
+" 		" No filename for current buffer
+" 		startinsert
+" 	elseif filereadable(@%) == 0
+" 		" File doesn't exist yet
+" 		startinsert
+" 	elseif line('$') == 1 && col('$') == 1
+" 		" File is empty
+" 		startinsert
+" 	endif
+" endfunction
 
-au VimEnter * call InsertIfEmpty()
+" au VimEnter * call InsertIfEmpty()
 
 ""split navigations
-"nnoremap <C-J> <C-W><C-J>
-"nnoremap <C-K> <C-W><C-K>
-"nnoremap <C-L> <C-W><C-L>
-"nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 
 " Enable folding
@@ -114,12 +115,12 @@ let g:ycm_auto_trigger=1
 
 
 " " NERDTREE UI
-" let NERDTreeMinimalUI = 1
-" let NERDTreeDirArrows = 1
-" " Open NERDTree with Ctrl M
-" nnoremap <Leader>f :NERDTreeToggle<Enter>
-" nnoremap <silent> <Leader>v :NERDTreeFind<CR>
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+" Open NERDTree with Ctrl M
+nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
 let g:slime_python_ipython = 1
@@ -147,6 +148,9 @@ colorscheme zenburn
 
 au InsertEnter * silent execute "!echo -en \<esc>[5 q"
 au InsertLeave * silent execute "!echo -en \<esc>[2 q"
+
+"remap for argwrap""
+nnoremap <silent> <leader>a :ArgWrap<CR>
 
 
 
