@@ -42,7 +42,7 @@ let g:python_highlight_all = 1
 let g:ycm_confirm_extra_conf = 0
 
 
-
+let &shell='/bin/bash -i'
 
 
 set ignorecase
