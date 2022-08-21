@@ -1,0 +1,57 @@
+All the Steps to setup zsh
+
+1. Install Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+2. Move .zshrc into home, replacing the default (Symbolic Link)
+3. Install Powerline 10k theme
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+4. Install zsh syntax Highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+5.  Install zsh autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+6. Install Fuzzy Finder
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+7. Install exa if not available via apt or brew use the command below
+sudo wget http://archive.ubuntu.com/ubuntu/pool/universe/r/rust-exa/exa_0.9.0-4_amd64.deb
+sudo apt-get install ./exa_0.9.0-4_amd64.deb
+8. Install the_silver_searcher and ripgrep, try apt or brew
+silversearcher syntax is funky
+sudo apt-get install silversearcher-ag 
+if not available via apt use or brew
+sudo curl -LO https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb
+sudo dpkg -i ripgrep_12.1.1_amd64.deb
+9. Install fd (if done manually download deb and run command in the same folder ) can brew
+sudo dpkg -i --force-overwrite fd-musl_*_amd64.deb
+10. Install autoupdate for zsh custom plugins
+git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins $ZSH_CUSTOM/plugins/autoupdate
+11. Install you-should-use
+git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/plugins/you-should-use
+12. Install CheatSheet (Might have to do in multiple steps on mac)
+curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh
+chmod +x /usr/local/bin/cht.sh
+13. Install bat (brew install bat)
+14. Install zoxide (brew install zoxide)
+15. Install dust (brew install dust)
+16. Install pfetch for the aesthetic
+17. Install Telepresence
+18. Install k9s
+19. Install OpenLens
+Debuggers
+20.Install debugpy for python
+21.Install dlv for go
+22. Install lazygit
+
+For Mac iTerm use color preset for vim
+Must install nerdfont for lots of stuff to work
+Use
+brew tap homebrew/cask-fonts &&
+brew install --cask font-meslo-lg-nerd-font
+
+These two are not practical for Mac so you can choose to omit!
+Install pueue for background jobs
+Install hyperfine for timing
+
+
+add screen and tmux widget to powerline 10k
+
+
