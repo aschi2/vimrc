@@ -76,6 +76,8 @@ Plug 'mbbill/undotree'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kkharji/sqlite.lua'
+" Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
+Plug 'segeljakt/vim-silicon'
 call plug#end()
 
 "Import Lua
@@ -278,6 +280,11 @@ nnoremap <leader><F10> :lua require'dap'.step_back()<CR>
 
 "Config to use Grip as markdown renderer
 let vim_markdown_preview_github=1
+
+
+"Silicon to Buffer
+vnoremap <C-p> :Silicon<CR>
+nnoremap <C-p> :Silicon<CR>
 
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 

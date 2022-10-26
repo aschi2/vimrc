@@ -91,6 +91,15 @@ plugins=(
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 VI_MODE_SET_CURSOR=true
 
+#homebrew autocompletion
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -155,6 +164,9 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 #Add Krew to Path
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
+#Add skupper to path
+export PATH="/Users/austin/bin:$PATH"
+
 #Put you-should-use at the end instead of the beginning
 export YSU_MESSAGE_POSITION="after"
 
@@ -162,7 +174,6 @@ export YSU_MESSAGE_POSITION="after"
 case "$OSTYPE" in
   darwin*)
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export PATH=$PATH:/Applications/MacVim.app/Contents/Resources/vim
   ;;
   linux*)
   ;;
@@ -174,6 +185,7 @@ function prompt_screen() {
 }
 #nvim
 alias vim=nvim
+alias vi=nvim
 #zoxide
 eval "$(zoxide init zsh)"
 alias cd=z
@@ -187,9 +199,6 @@ alias find=fd
 alias ls=exa
 # make it easy to get the last commit has
 alias ggc="g rev-parse HEAD"
-# kubectx and kubens for kubie
-alias kubectx="kubie ctx"
-alias kubens="kubie ns"
 
 #lazygit
 lg()
@@ -208,5 +217,13 @@ lg()
 source ~/vimrc/macOS/colima/colima.zshrc
 # fi
 
+alias tkubectx="tsh kube ls | fzf | xargs tsh kube login"
+
+alias kubectx='export KUBECONFIG=$(kubesess context)'
+alias kubens='kubesess default-namespace'
+
+export VAULT_ADDR='https://vault.awmfric.com'
+
 pfetch
+
 

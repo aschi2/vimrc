@@ -22,6 +22,7 @@ brew install bat
 brew install zoxide
 brew install dust
 brew install pfetch
+brew install kubesess
 # brew install pueue
 # brew install hyperfine
 # Install Krew
