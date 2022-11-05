@@ -167,6 +167,9 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 #Add skupper to path
 export PATH="/Users/austin/bin:$PATH"
 
+#Add Cargo to path
+export PATH="/Users/austin/.cargo/bin:$PATH"
+
 #Put you-should-use at the end instead of the beginning
 export YSU_MESSAGE_POSITION="after"
 

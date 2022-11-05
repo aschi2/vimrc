@@ -77,7 +77,8 @@ Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kkharji/sqlite.lua'
 " Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
-Plug 'segeljakt/vim-silicon'
+Plug 'NarutoXY/silicon.lua'
+" Plug 'segeljakt/vim-silicon'
 call plug#end()
 
 "Import Lua
@@ -283,8 +284,8 @@ let vim_markdown_preview_github=1
 
 
 "Silicon to Buffer
-vnoremap <C-p> :Silicon<CR>
-nnoremap <C-p> :Silicon<CR>
+vnoremap <C-p> :lua require("silicon").visualise_api({to_clip = true})<CR>
+nnoremap <C-p> :lua require("silicon").visualise_api({show_buf = true,to_clip = true})<CR>
 
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 

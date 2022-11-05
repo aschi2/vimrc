@@ -248,4 +248,5 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
-
+--- Setup Silicon.lua
+require("silicon").setup({})
