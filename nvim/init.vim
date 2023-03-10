@@ -12,6 +12,8 @@ Plug 'tpope/vim-sensible'
 Plug 'kdheepak/lazygit.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'numToStr/Comment.nvim'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-vinegar'
 " Syntax Plugins
 Plug 'machakann/vim-sandwich'
 Plug 'frazrepo/vim-rainbow'
@@ -23,18 +25,21 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-copilot'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'towolf/vim-helm'
 " Formatting and Code Insertion Plugins
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'FooSoft/vim-argwrap/'
 Plug 'dbeniamine/cheat.sh-vim'
 Plug 'AckslD/nvim-neoclip.lua'
+Plug 'github/copilot.vim'
 " Navigation Plugins
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
@@ -55,7 +60,7 @@ Plug 'wincent/terminus'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'onsails/lspkind.nvim'
-Plug 'Maan2003/lsp_lines.nvim'
+Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 Plug 'folke/twilight.nvim'
 Plug 'Pocco81/true-zen.nvim'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
@@ -77,7 +82,7 @@ Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kkharji/sqlite.lua'
 " Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
-Plug 'NarutoXY/silicon.lua'
+Plug 'NarutoXY/silicon.lua' , { 'commit': '5c2342502e4fa8423d5fa717851be840bfd9ae85'}
 " Plug 'segeljakt/vim-silicon'
 call plug#end()
 
@@ -98,6 +103,16 @@ if !exists("g:os")
         let g:os = substitute(system('uname'), '\n', '', '')
     endif
 	endif
+
+" Set Neovide Settings
+if exists("g:neovide")
+	nnoremap <D-v> "*p
+	inoremap <D-v> <c-r>+
+	let g:neovide_transparency = 0.9
+	" let g:transparency = 0.0
+
+endif
+
 
 set laststatus=3
 set nohlsearch
@@ -122,12 +137,12 @@ set undofile
 set shiftround
 
 " vsnip
-imap <expr> <C-e>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-e>'
-smap <expr> <C-e>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-e>'
-imap <expr> <C-w>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-w>'
-smap <expr> <C-w>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-w>'
-imap <expr> <C-b> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-b>'
-smap <expr> <C-b> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-b>'
+" imap <expr> <C-e>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-e>'
+" smap <expr> <C-e>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-e>'
+" imap <expr> <C-w>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-w>'
+" smap <expr> <C-w>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-w>'
+" imap <expr> <C-b> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-b>'
+" smap <expr> <C-b> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-b>'
 
 au BufRead,BufNewFile *.json set filetype=json
 au BufRead,BufNewFile Jenkinsfile set filetype=groovy
@@ -242,7 +257,7 @@ nnoremap <leader>sl :Telescope live_grep<CR>
 nnoremap <leader>st :Telescope tags <CR>
 nnoremap <leader>sa :Telescope builtin include_extensions=true<CR>
 nnoremap <leader>sp :lua require('telescope').extensions.neoclip.default()<CR>
-nnoremap <leader>gF :lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>af :lua vim.lsp.buf.code_action()<CR>
 
 
 "File Browser
@@ -286,6 +301,9 @@ let vim_markdown_preview_github=1
 "Silicon to Buffer
 vnoremap <C-p> :lua require("silicon").visualise_api({to_clip = true})<CR>
 nnoremap <C-p> :lua require("silicon").visualise_api({show_buf = true,to_clip = true})<CR>
+
+" Mapping for copilot panel
+nnoremap <leader>h :Copilot panel<CR>
 
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 

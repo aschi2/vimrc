@@ -86,11 +86,12 @@ require 'lspconfig'.svelte.setup {
 }
 
 -- Setup nvim-cmp.
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
+-- vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
 cmp.setup({
+	preselect = cmp.PreselectMode.None,
 	completion = {
 		get_trigger_characters = function(trigger_characters)
 			local new_trigger_characters = {}
@@ -132,7 +133,8 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
-		{ name = 'vsnip' }, -- For vsnip users.
+		-- { name = 'vsnip' }, -- For vsnip users.
+		{ name = 'copilot'}, -- For copilot
 		-- { name = 'luasnip' }, -- For luasnip users.
 		-- { name = 'ultisnips' }, -- For ultisnips users.
 		-- { name = 'snippy' }, -- For snippy users.
@@ -143,6 +145,7 @@ cmp.setup({
 		{ name = 'buffer' },
 		{ name = 'nvim_lsp_signature_help'},
 	})
+
 })
 
 --- Setup Telescope
@@ -246,7 +249,18 @@ require("null-ls").setup({
 require("lsp_lines").setup()
 vim.diagnostic.config({
   virtual_text = false,
+  virtual_lines = { only_current_line = true},
+  update_in_insert = true,
 })
+
 
 --- Setup Silicon.lua
 require("silicon").setup({})
+
+--- use right node for copilot
+vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
+-- vim.g.copilot_no_tab_map = true
+-- vim.g.copilot_assume_mapped = true
+-- vim.g.copilot_tab_fallback = ""
+--
+
