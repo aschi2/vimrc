@@ -13,7 +13,7 @@ require 'lspconfig'.jedi_language_server.setup {
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
-require 'lspconfig'.sumneko_lua.setup {
+require 'lspconfig'.lua_ls.setup {
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })

@@ -226,10 +226,9 @@ source ~/vimrc/macOS/colima/colima.zshrc
 # fi
 
 alias tkubectx="tsh kube ls | fzf | cut -d' ' -f1 | xargs -I '{}' tsh kube login '{}'"
-# tkubectx should take the output of tsh kube ls, pipe to fzf, then extract the first item in that ouput and pipe to tsh kube login
 
-alias kubectx='export KUBECONFIG=$(kubesess context)'
-alias kubens='kubesess default-namespace'
+# alias kubectx='export KUBECONFIG=$(kubesess context)'
+# alias kubens='kubesess default-namespace'
 
 export VAULT_ADDR='https://vault.awmfric.com'
 
