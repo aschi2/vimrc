@@ -40,7 +40,7 @@ Debuggers
 20.Install debugpy for python
 21.Install dlv for go
 22. Install lazygit
-23. Install kubesess
+23. Install kubectx
 
 For Mac iTerm use color preset for vim
 Must install nerdfont for lots of stuff to work
