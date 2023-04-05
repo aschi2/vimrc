@@ -275,7 +275,7 @@ nnoremap <leader>b :BufferPick<CR>
 " Comment in for  tmux
 "et g:slime_target="tmux"
 " Comment in for vimterminal
-let g:slime_target="vimterminal"
+let g:slime_target="zellij"
 let g:slime_no_mappings = 1
 nmap <leader><leader>sc <Plug>SlimeSendCell
 nnoremap <leader><leader>sl :SlimeSendCurrentLine<CR>
@@ -304,6 +304,10 @@ nnoremap <C-p> :lua require("silicon").visualise_api({show_buf = true,to_clip = 
 
 " Mapping for copilot panel
 nnoremap <leader>h :Copilot panel<CR>
+
+" Add lsp information on hover
+nnoremap <C-s> :lua vim.lsp.buf.hover()<CR>
+
 
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 

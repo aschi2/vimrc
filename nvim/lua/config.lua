@@ -74,6 +74,7 @@ require 'lspconfig'.yamlls.setup {
 	end
 }
 require 'lspconfig'.svelte.setup {
+	filetypes = { "svelte", "html" },
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })

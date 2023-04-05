@@ -1,6 +1,7 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
+eval "$(zellij setup --generate-auto-start zsh)"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -201,12 +202,16 @@ alias cd=z
 alias cat=bat
 #use dust instead of du
 alias du=dust
+#use duf instead of df
+alias df=duf
 #use fd instead of find
 alias find=fd
 # make exa default
 alias ls=exa
 # make it easy to get the last commit has
 alias ggc="g rev-parse HEAD"
+# use bottome instead of top
+alias top=btm
 
 #lazygit
 lg()
@@ -236,4 +241,7 @@ export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 
 pfetch
 
-
+function zr () { zellij run --name "$*" -- zsh -ic "$*";}
+function zrf () { zellij run --name "$*" --floating -- zsh -ic "$*";}
+function ze () { zellij edit "$*";}
+function zef () { zellij edit --floating "$*";}

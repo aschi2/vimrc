@@ -4,6 +4,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 #Replace zshrc with own
 rm ~/.zshrc
 ln -s ~/vimrc/.zshrc ~/.zshrc
+ln -s ~/vimrc/zellij ~/.config/zellij
 #Install Powerline 10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 #Install plugins
@@ -16,13 +17,17 @@ brew install silversearcher-ag
 brew install fd
 git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins $ZSH_CUSTOM/plugins/autoupdate
 git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/plugins/you-should-use
-curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh
-chmod +x /usr/local/bin/cht.sh
+# curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh
+# chmod +x /usr/local/bin/cht.sh
 brew install bat
 brew install zoxide
 brew install dust
+brew install duf
 brew install pfetch
 brew install kubectx
+brew install zellij
+brew install bottom
+brew install topgrade
 
 # brew install pueue
 # brew install hyperfine
