@@ -2,17 +2,32 @@
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require("mason").setup()
 require("mason-lspconfig").setup()
-require 'lspconfig'.jedi_language_server.setup {
+
+require 'lspconfig'.pyright.setup {
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
+-- require 'lspconfig'.jedi_language_server.setup {
+-- 	capabilities = capabilities,
+-- 	on_attach = function()
+-- 		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
+-- 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
+-- 	end
+-- }
+-- require 'lspconfig'.ruff_lsp.setup {
+-- 	capabilities = capabilities,
+-- 	on_attach = function()
+-- 		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
+-- 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
+-- 	end
+-- }
 require 'lspconfig'.lua_ls.setup {
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end,
 	settings = {
@@ -26,14 +41,14 @@ require 'lspconfig'.lua_ls.setup {
 require 'lspconfig'.gopls.setup {
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
 require 'lspconfig'.vimls.setup {
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
@@ -49,7 +64,7 @@ require 'lspconfig'.yamlls.setup {
 	},
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
@@ -57,13 +72,13 @@ require 'lspconfig'.svelte.setup {
 	filetypes = { "svelte", "html" },
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
 
 -- Setup nvim-cmp.
--- vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
@@ -104,25 +119,40 @@ cmp.setup({
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
-		['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		-- ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		['<CR>'] = cmp.mapping({
+			i = function(fallback)
+				if cmp.visible() and cmp.get_active_entry() then
+					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+				else
+					fallback()
+				end
+			end,
+			s = cmp.mapping.confirm({ select = true }),
+			c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+		}),
 		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
 	}),
 	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
-		-- { name = 'vsnip' }, -- For vsnip users.
-		{ name = 'copilot'}, -- For copilot
-		-- { name = 'luasnip' }, -- For luasnip users.
-		-- { name = 'ultisnips' }, -- For ultisnips users.
-		-- { name = 'snippy' }, -- For snippy users.
-	},
+			{ name = 'copilot' }, -- For copilot
+			{
+				name = 'nvim_lsp',
+				max_item_count = 5,
+			},
+			{ name = 'nvim_lsp_signature_help' },
+			-- { name = 'vsnip' }, -- For vsnip users.
+			{ name = 'path',                   max_item_count = 5, }
+			-- { name = 'luasnip' }, -- For luasnip users.
+			-- { name = 'ultisnips' }, -- For ultisnips users.
+			-- { name = 'snippy' }, -- For snippy users.
+		},
 
 
-	{
-		{ name = 'buffer' },
-		{ name = 'nvim_lsp_signature_help'},
-	})
-
+		{
+			{ name = 'buffer' },
+			{ name = 'nvim_lsp_signature_help' },
+		})
 })
 
 --- Setup Telescope
@@ -134,12 +164,12 @@ require('telescope').load_extension('dap')
 local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
 telescope.setup {
-  defaults = {
-    mappings = {
-      i = { ["<c-l>"] = trouble.open_with_trouble },
-      n = { ["<c-l>"] = trouble.open_with_trouble },
-    },
-  },
+	defaults = {
+		mappings = {
+			i = { ["<c-l>"] = trouble.open_with_trouble },
+			n = { ["<c-l>"] = trouble.open_with_trouble },
+		},
+	},
 }
 
 
@@ -198,7 +228,6 @@ require('true-zen').setup {
 				width = 140
 			}
 		}
-
 	},
 	integrations = {
 		twilight = true
@@ -217,8 +246,6 @@ require("catppuccin").setup({
 		},
 		barbar = true,
 		lightspeed = true,
-
-
 	}
 })
 -- setup indent-blankline
@@ -239,9 +266,9 @@ require("null-ls").setup({
 --- Setup lsp_lines
 require("lsp_lines").setup()
 vim.diagnostic.config({
-  virtual_text = false,
-  virtual_lines = { only_current_line = true},
-  update_in_insert = true,
+	virtual_text = false,
+	virtual_lines = { only_current_line = true },
+	update_in_insert = true,
 })
 
 
@@ -257,5 +284,5 @@ vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
 
 --- Setup project.nvim
 require('project_nvim').setup {}
- --- Setup todo-comments.nvim
+--- Setup todo-comments.nvim
 require("todo-comments").setup {}

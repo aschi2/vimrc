@@ -86,7 +86,10 @@ Plug 'kkharji/sqlite.lua'
 " Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
 Plug 'NarutoXY/silicon.lua' , { 'commit': '5c2342502e4fa8423d5fa717851be840bfd9ae85'}
 " Plug 'segeljakt/vim-silicon'
+Plug 'lewis6991/impatient.nvim'
+Plug 'dstein64/vim-startuptime'
 call plug#end()
+lua require('impatient')
 
 "Import Lua
 lua require("config")
