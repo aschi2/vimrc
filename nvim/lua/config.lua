@@ -5,22 +5,14 @@ require("mason-lspconfig").setup()
 require 'lspconfig'.jedi_language_server.setup {
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gf", "<cmd> Telescope diagnostics<cr>", { buffer = 0 })
+		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
 require 'lspconfig'.lua_ls.setup {
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gf", "<cmd> Telescope diagnostics<cr>", { buffer = 0 })
+		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end,
 	settings = {
@@ -34,22 +26,14 @@ require 'lspconfig'.lua_ls.setup {
 require 'lspconfig'.gopls.setup {
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gf", "<cmd> Telescope diagnostics<cr>", { buffer = 0 })
+		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
 require 'lspconfig'.vimls.setup {
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gf", "<cmd> Telescope diagnostics<cr>", { buffer = 0 })
+		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
@@ -65,11 +49,7 @@ require 'lspconfig'.yamlls.setup {
 	},
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gf", "<cmd> Telescope diagnostics<cr>", { buffer = 0 })
+		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
@@ -77,11 +57,7 @@ require 'lspconfig'.svelte.setup {
 	filetypes = { "svelte", "html" },
 	capabilities = capabilities,
 	on_attach = function()
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gf", "<cmd> Telescope diagnostics<cr>", { buffer = 0 })
+		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
@@ -154,6 +130,17 @@ require('telescope').load_extension('fzf')
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('ui-select')
 require('telescope').load_extension('dap')
+-- local actions = require("telescope.actions")
+local trouble = require("trouble.providers.telescope")
+local telescope = require("telescope")
+telescope.setup {
+  defaults = {
+    mappings = {
+      i = { ["<c-l>"] = trouble.open_with_trouble },
+      n = { ["<c-l>"] = trouble.open_with_trouble },
+    },
+  },
+}
 
 
 --- Setup Treesitter
@@ -243,7 +230,10 @@ require("indent_blankline").setup {
 --- setup null-ls
 require("null-ls").setup({
 	sources = {
-		require("null-ls").builtins.formatting.black,
+		require('null-ls').builtins.diagnostics.ruff,
+		require('null-ls').builtins.formatting.black,
+		require('null-ls').builtins.formatting.isort,
+
 	},
 })
 --- Setup lsp_lines
@@ -267,3 +257,5 @@ vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
 
 --- Setup project.nvim
 require('project_nvim').setup {}
+ --- Setup todo-comments.nvim
+require("todo-comments").setup {}

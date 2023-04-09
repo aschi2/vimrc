@@ -50,7 +50,8 @@ Plug 'andymass/vim-matchup'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags' "Don't Forget to install universal ctags
-Plug 'Dimercel/todo-vim'
+Plug 'folke/todo-comments.nvim'
+Plug 'folke/trouble.nvim'
 Plug 'ggandor/leap.nvim'
 Plug 'ahmedkhalf/project.nvim'
 " Aesthetic Plugins
@@ -156,7 +157,7 @@ let g:rainbow_active = 1
 :autocmd InsertLeave * set nocul
 
 " Enter Exits locationlist and quickfix
-:autocmd FileType qf nmap <buffer> <cr> <cr>:lcl<cr>
+" :autocmd FileType qf nmap <buffer> <cr> <cr>:lcl<cr>
 
 
 
@@ -179,8 +180,9 @@ let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
 
 "remap for argwrap""
 nnoremap <silent> <leader>a :ArgWrap<CR>
+
 " map autoformat to space-p
-nnoremap <Leader>p :Autoformat<Enter>
+nnoremap <Leader>f :lua vim.lsp.buf.format() <CR>
 
 
 " Enable folding
@@ -242,14 +244,22 @@ nnoremap <leader>m :TZAtaraxis<CR>
 autocmd BufWritePre *.py,*.pyw,*.c,*.h,*.go  %s/\s\+$//e
 
 
-autocmd BufWinEnter quickfix nnoremap <silent> <buffer>
-            \   q :cclose<cr>:lclose<cr>
-autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
-            \   bd|
-            \   q | endif
+" autocmd BufWinEnter quickfix nnoremap <silent> <buffer>
+"             \   q :cclose<cr>:lclose<cr>
+" autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
+"             \   bd|
+"             \   q | endif
 
 "Open/close Todo list
-nmap <leader>T :TODOToggle<CR>
+nmap <leader>T :TodoTrouble<CR>
+
+"Open diagnostics in trouble
+nnoremap <leader>l :Trouble workspace_diagnostics<CR>
+
+" Go to Def and Go To Ref with Trouble
+nnoremap <leader>gd :Trouble lsp_definitions<CR>
+nnoremap <leader>gr :Trouble lsp_references<CR>
+
 
 "Search Buffers
 nnoremap <leader>sf :Telescope git_files<CR>
@@ -262,7 +272,7 @@ nnoremap <leader>af :lua vim.lsp.buf.code_action()<CR>
 
 
 "File Browser
-noremap <leader>f :Telescope file_browser<CR>
+noremap <leader>F :Telescope file_browser<CR>
 
 "BufferPick Mode
 nnoremap <leader>b :BufferPick<CR>
