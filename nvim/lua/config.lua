@@ -265,3 +265,5 @@ vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
 -- vim.g.copilot_tab_fallback = ""
 --
 
+--- Setup project.nvim
+require('project_nvim').setup {}

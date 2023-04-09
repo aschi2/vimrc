@@ -52,6 +52,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags' "Don't Forget to install universal ctags
 Plug 'Dimercel/todo-vim'
 Plug 'ggandor/leap.nvim'
+Plug 'ahmedkhalf/project.nvim'
 " Aesthetic Plugins
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -265,6 +266,8 @@ noremap <leader>f :Telescope file_browser<CR>
 
 "BufferPick Mode
 nnoremap <leader>b :BufferPick<CR>
+nnoremap <tab> :bnext<CR>
+nnoremap <s-tab> :bprevious<CR>
 
 "Remove CheatSheet Mappings
 " let g:CheatSheetDoNotMap=1
@@ -308,6 +311,8 @@ nnoremap <leader>h :Copilot panel<CR>
 " Add lsp information on hover
 nnoremap <C-s> :lua vim.lsp.buf.hover()<CR>
 
+" Lazygit
+nnoremap <silent> <leader>gg :LazyGit<CR>
 
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 
