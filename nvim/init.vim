@@ -25,7 +25,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-copilot'
+" Plug 'hrsh7th/cmp-copilot'
+Plug 'zbirenbaum/copilot-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -33,13 +34,15 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'towolf/vim-helm'
+Plug 'someone-stole-my-name/yaml-companion.nvim'
 " Formatting and Code Insertion Plugins
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'FooSoft/vim-argwrap/'
-Plug 'dbeniamine/cheat.sh-vim'
+" Plug 'dbeniamine/cheat.sh-vim'
 Plug 'AckslD/nvim-neoclip.lua'
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
+Plug 'zbirenbaum/copilot.lua'
 " Navigation Plugins
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
@@ -54,6 +57,7 @@ Plug 'folke/todo-comments.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'ggandor/leap.nvim'
 Plug 'ahmedkhalf/project.nvim'
+Plug 'ThePrimeagen/harpoon'
 " Aesthetic Plugins
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -63,8 +67,8 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'onsails/lspkind.nvim'
 Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
-Plug 'folke/twilight.nvim'
-Plug 'Pocco81/true-zen.nvim'
+" Plug 'folke/twilight.nvim'
+" Plug 'Pocco81/true-zen.nvim'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 " Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 " Plug 'jnurmine/Zenburn' "Dont forget to add export TERM=xterm-256color to bashrc or zshrc
@@ -77,7 +81,7 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'mfussenegger/nvim-dap-python'
 Plug 'leoluz/nvim-dap-go'
-Plug 'jpalardy/vim-slime'
+" Plug 'jpalardy/vim-slime'
 " Other Plugins
 Plug 'mbbill/undotree'
 Plug 'JamshedVesuna/vim-markdown-preview'
@@ -89,7 +93,6 @@ Plug 'NarutoXY/silicon.lua' , { 'commit': '5c2342502e4fa8423d5fa717851be840bfd9a
 Plug 'lewis6991/impatient.nvim'
 Plug 'dstein64/vim-startuptime'
 call plug#end()
-lua require('impatient')
 
 "Import Lua
 lua require("config")
@@ -185,7 +188,7 @@ let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
 nnoremap <silent> <leader>a :ArgWrap<CR>
 
 " map autoformat to space-p
-nnoremap <Leader>f :lua vim.lsp.buf.format() <CR>
+nnoremap <leader>f :lua vim.lsp.buf.format() <CR>
 
 
 " Enable folding
@@ -241,9 +244,9 @@ vnoremap <leader>k :m '<-2<CR>gv=gv
 
 "Set Zen Shortcut
 
-nnoremap <leader>m :TZAtaraxis<CR>
+" nnoremap <leader>m :TZAtaraxis<CR>
 
-" Delte Unnecessary Whitespace on save
+" Delete Unnecessary Whitespace on save
 autocmd BufWritePre *.py,*.pyw,*.c,*.h,*.go  %s/\s\+$//e
 
 
@@ -278,7 +281,7 @@ nnoremap <leader>af :lua vim.lsp.buf.code_action()<CR>
 noremap <leader>F :Telescope file_browser<CR>
 
 "BufferPick Mode
-nnoremap <leader>b :BufferPick<CR>
+" nnoremap <leader>b :BufferPick<CR>
 nnoremap <tab> :bnext<CR>
 nnoremap <s-tab> :bprevious<CR>
 
@@ -291,11 +294,11 @@ nnoremap <s-tab> :bprevious<CR>
 " Comment in for  tmux
 "et g:slime_target="tmux"
 " Comment in for vimterminal
-let g:slime_target="zellij"
-let g:slime_no_mappings = 1
-nmap <leader><leader>sc <Plug>SlimeSendCell
-nnoremap <leader><leader>sl :SlimeSendCurrentLine<CR>
-let g:slime_cell_delimiter = "#%%"
+" let g:slime_target="zellij"
+" let g:slime_no_mappings = 1
+" nmap <leader><leader>sc <Plug>SlimeSendCell
+" nnoremap <leader><leader>sl :SlimeSendCurrentLine<CR>
+" let g:slime_cell_delimiter = "#%%"
 
 
 "Dap Debugger
@@ -321,11 +324,13 @@ nnoremap <C-p> :lua require("silicon").visualise_api({show_buf = true,to_clip = 
 " Mapping for copilot panel
 nnoremap <leader>h :Copilot panel<CR>
 
-" Add lsp information on hover
-nnoremap <C-s> :lua vim.lsp.buf.hover()<CR>
-
 " Lazygit
 nnoremap <silent> <leader>gg :LazyGit<CR>
+
+" Harpoon
+nnoremap <leader>m :lua require('harpoon.mark').add_file()<CR>
+" nnoremap <leader>sm :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <leader>sm :Telescope harpoon marks<CR>
 
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 

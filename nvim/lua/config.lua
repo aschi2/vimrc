@@ -1,3 +1,4 @@
+require("impatient")
 --- Setup LSP
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require("mason").setup()
@@ -10,20 +11,6 @@ require 'lspconfig'.pyright.setup {
 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
--- require 'lspconfig'.jedi_language_server.setup {
--- 	capabilities = capabilities,
--- 	on_attach = function()
--- 		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
--- 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
--- 	end
--- }
--- require 'lspconfig'.ruff_lsp.setup {
--- 	capabilities = capabilities,
--- 	on_attach = function()
--- 		vim.keymap.set("n", "<leader>gt", vim.lsp.buf.hover, { buffer = 0 })
--- 		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
--- 	end
--- }
 require 'lspconfig'.lua_ls.setup {
 	capabilities = capabilities,
 	on_attach = function()
@@ -56,9 +43,10 @@ require 'lspconfig'.yamlls.setup {
 	settings = {
 		yaml = {
 			schemas = {
-				-- kubernetes = {"/*.yaml"}
+				-- kubernetes = { "*.yaml" },
 				-- kubernetes = {"/Kubernetes/**/*.yaml"},
-				["file:Users/austin/vimrc/nvim/extras/schemas/all.json"] = { "/Kubernetes/**/*.yaml" }
+				-- ["file:Users/austin/vimrc/nvim/extras/schemas/_definitions.json"] = { "*.yaml" },
+				["file:Users/austin/vimrc/nvim/extras/schemas/all.json"] = { "*.yaml" },
 			}
 		}
 	},
@@ -82,6 +70,13 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
+
+local has_words_before = function()
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+end
+
 cmp.setup({
 	preselect = cmp.PreselectMode.None,
 	completion = {
@@ -97,8 +92,9 @@ cmp.setup({
 	},
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = 'symbol', -- show only symbol annotations
+			mode = 'symbol_text', -- show only symbol annotations
 			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+			symbol_map = { Copilot = "" },
 		})
 	},
 	snippet = {
@@ -120,29 +116,38 @@ cmp.setup({
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
 		-- ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-		['<CR>'] = cmp.mapping({
-			i = function(fallback)
-				if cmp.visible() and cmp.get_active_entry() then
-					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-				else
-					fallback()
-				end
-			end,
-			s = cmp.mapping.confirm({ select = true }),
-			c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+		-- ['<CR>'] = cmp.mapping({
+		-- 	i = function(fallback)
+		-- 		if cmp.visible() and cmp.get_active_entry() then
+		-- 			cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+		-- 		else
+		-- 			fallback()
+		-- 		end
+		-- 	end,
+		-- 	s = cmp.mapping.confirm({ select = true }),
+		-- 	c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+		-- }),
+		["<CR>"] = cmp.mapping.confirm({
+			-- this is the important line
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = false,
 		}),
-		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+		-- ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+		["<Tab>"] = vim.schedule_wrap(function(fallback)
+			if cmp.visible() and has_words_before() then
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+			else
+				fallback()
+			end
+		end),
 		["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
 	}),
 	sources = cmp.config.sources({
 			{ name = 'copilot' }, -- For copilot
-			{
-				name = 'nvim_lsp',
-				max_item_count = 5,
-			},
+			{ name = 'nvim_lsp' },
 			{ name = 'nvim_lsp_signature_help' },
 			-- { name = 'vsnip' }, -- For vsnip users.
-			{ name = 'path',                   max_item_count = 5, }
+			{ name = 'path' }
 			-- { name = 'luasnip' }, -- For luasnip users.
 			-- { name = 'ultisnips' }, -- For ultisnips users.
 			-- { name = 'snippy' }, -- For snippy users.
@@ -155,11 +160,13 @@ cmp.setup({
 		})
 })
 
+
 --- Setup Telescope
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('ui-select')
 require('telescope').load_extension('dap')
+require('telescope').load_extension('harpoon')
 -- local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
@@ -219,20 +226,20 @@ require('Comment').setup()
 --- Setup Leap
 require('leap').set_default_keymaps()
 --- Setup Twilight
-require('twilight').setup {}
+-- require('twilight').setup {}
 --- Setup Zen
-require('true-zen').setup {
-	modes = {
-		ataraxis = {
-			minimum_writing_area = {
-				width = 140
-			}
-		}
-	},
-	integrations = {
-		twilight = true
-	}
-}
+-- require('true-zen').setup {
+-- 	modes = {
+-- 		ataraxis = {
+-- 			minimum_writing_area = {
+-- 				width = 140
+-- 			}
+-- 		}
+-- 	},
+-- 	integrations = {
+-- 		twilight = true
+-- 	}
+-- }
 --- Setup Neoclip
 require('neoclip').setup {
 	enable_persistent_history = true
@@ -275,12 +282,27 @@ vim.diagnostic.config({
 --- Setup Silicon.lua
 require("silicon").setup({})
 
+--- Setup copilot.lua
 --- use right node for copilot
-vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
+-- vim.g.copilot_node_command = "/opt/homebrew/opt/node@16/bin/node"
 -- vim.g.copilot_no_tab_map = true
 -- vim.g.copilot_assume_mapped = true
 -- vim.g.copilot_tab_fallback = ""
---
+require("copilot").setup({
+	suggestion = { enabled = false },
+	panel = {
+		enabled = true,
+	},
+	filetypes = {
+		['*'] = true,
+	},
+})
+require("copilot_cmp").setup({
+	-- formatters = {
+	-- 	insert_text = require("copilot_cmp.format").remove_existing
+	-- },
+})
+
 
 --- Setup project.nvim
 require('project_nvim').setup {}
