@@ -8,14 +8,14 @@ require 'lspconfig'.pyright.setup {
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
+		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
 require 'lspconfig'.lua_ls.setup {
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
+		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
 	end,
 	settings = {
 		Lua = {
@@ -29,14 +29,14 @@ require 'lspconfig'.gopls.setup {
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
+		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
 require 'lspconfig'.vimls.setup {
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
+		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
 require 'lspconfig'.yamlls.setup {
@@ -53,7 +53,7 @@ require 'lspconfig'.yamlls.setup {
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
+		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
 require 'lspconfig'.svelte.setup {
@@ -61,9 +61,30 @@ require 'lspconfig'.svelte.setup {
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>gc", vim.lsp.buf.rename, { buffer = 0 })
+		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
+require 'lspconfig'.rome.setup {
+	filetypes = { "svelte", "html","ts","js" },
+	capabilities = capabilities,
+	on_attach = function()
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
+	end
+}
+require 'lspconfig'.emmet_ls.setup({
+    -- on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+    init_options = {
+      html = {
+        options = {
+          -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+          ["bem.enabled"] = true,
+        },
+      },
+    }
+})
 
 -- Setup nvim-cmp.
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -280,7 +301,11 @@ vim.diagnostic.config({
 
 
 --- Setup Silicon.lua
-require("silicon").setup({})
+-- require("silicon").setup({})
+require("silicon").setup({
+	font = 'MesloLGSDZ Nerd Font Mono=16',
+	theme = 'catppuccin_dark',
+})
 
 --- Setup copilot.lua
 --- use right node for copilot
@@ -308,3 +333,45 @@ require("copilot_cmp").setup({
 require('project_nvim').setup {}
 --- Setup todo-comments.nvim
 require("todo-comments").setup {}
+--- Setup Navic
+local navic = require("nvim-navic")
+navic.setup({
+	lsp = {
+		auto_attach = true,
+	}
+})
+require("lualine").setup({
+	winbar = {
+		lualine_a = {
+			{
+				function()
+					return navic.get_location()
+				end,
+				cond = function()
+					return navic.is_available()
+				end
+			},
+		}
+	}
+})
+--- Setup Navbuddy
+local navbuddy = require("nvim-navbuddy")
+navbuddy.setup({
+	lsp = {
+		auto_attach = true,
+	}
+})
+
+require("lspconfig").clangd.setup {
+	on_attach = function(client, bufnr)
+		navbuddy.attach(client, bufnr)
+	end
+}
+--- Setup gitsigns
+require('gitsigns').setup({
+	current_line_blame = true,
+	current_line_blame_opts = {
+		virt_text_pos = 'right_align',
+		delay = 1,
+	}
+})

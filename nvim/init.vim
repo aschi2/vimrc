@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
 " tpope plugins
 Plug 'tpope/vim-sensible'
 Plug 'kdheepak/lazygit.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-speeddating'
@@ -52,12 +53,15 @@ Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'andymass/vim-matchup'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'ludovicchabant/vim-gutentags' "Don't Forget to install universal ctags
+" Plug 'ludovicchabant/vim-gutentags' "Don't Forget to install universal ctags
 Plug 'folke/todo-comments.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'ggandor/leap.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'ThePrimeagen/harpoon'
+Plug 'SmiteshP/nvim-navic'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'SmiteshP/nvim-navbuddy'
 " Aesthetic Plugins
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -87,8 +91,8 @@ Plug 'mbbill/undotree'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'kkharji/sqlite.lua'
-" Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
-Plug 'NarutoXY/silicon.lua' , { 'commit': '5c2342502e4fa8423d5fa717851be840bfd9ae85'}
+Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
+" Plug 'NarutoXY/silicon.lua' , { 'commit': '5c2342502e4fa8423d5fa717851be840bfd9ae85'}
 " Plug 'segeljakt/vim-silicon'
 Plug 'lewis6991/impatient.nvim'
 Plug 'dstein64/vim-startuptime'
@@ -271,7 +275,7 @@ nnoremap <leader>gr :Trouble lsp_references<CR>
 nnoremap <leader>sf :Telescope git_files<CR>
 nnoremap <leader>sb :Telescope buffers<CR>
 nnoremap <leader>sl :Telescope live_grep<CR>
-nnoremap <leader>st :Telescope tags <CR>
+nnoremap <leader>sn :Navbuddy <CR>
 nnoremap <leader>sa :Telescope builtin include_extensions=true<CR>
 nnoremap <leader>sp :lua require('telescope').extensions.neoclip.default()<CR>
 nnoremap <leader>af :lua vim.lsp.buf.code_action()<CR>
@@ -318,8 +322,11 @@ let vim_markdown_preview_github=1
 
 
 "Silicon to Buffer
-vnoremap <C-p> :lua require("silicon").visualise_api({to_clip = true})<CR>
-nnoremap <C-p> :lua require("silicon").visualise_api({show_buf = true,to_clip = true})<CR>
+" vnoremap <C-s> :lua require("silicon").visualise_api({to_clip = true})<CR>
+" nnoremap <C-s> :lua require("silicon").visualise_api({show_buf = true,to_clip = true})<CR>
+nnoremap SS :silent! Silicon<CR>
+vnoremap SS :silent! '<,'>Silicon<CR>
+
 
 " Mapping for copilot panel
 nnoremap <leader>h :Copilot panel<CR>
