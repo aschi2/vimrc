@@ -44,6 +44,7 @@ Plug 'FooSoft/vim-argwrap/'
 Plug 'AckslD/nvim-neoclip.lua'
 " Plug 'github/copilot.vim'
 Plug 'zbirenbaum/copilot.lua'
+Plug 'ecthelionvi/NeoComposer.nvim'
 " Navigation Plugins
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
@@ -62,6 +63,21 @@ Plug 'ThePrimeagen/harpoon'
 Plug 'SmiteshP/nvim-navic'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'SmiteshP/nvim-navbuddy'
+if has('nvim')
+  function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+  endfunction
+
+  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+else
+  Plug 'gelguy/wilder.nvim'
+
+  " To use Python remote plugin features in Vim, can be skipped
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 " Aesthetic Plugins
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -79,6 +95,7 @@ Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 " Plug 'joshdick/onedark.vim'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'romainl/Apprentice'
+Plug 'themaxmarchuk/tailwindcss-colors.nvim'
 " Debugging Plugins
 Plug 'mfussenegger/nvim-dap'
 Plug 'theHamsta/nvim-dap-virtual-text'

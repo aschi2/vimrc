@@ -56,6 +56,38 @@ require 'lspconfig'.yamlls.setup {
 		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
+local configs = require('lspconfig.configs')
+local lspconfig = require('lspconfig')
+local util = require('lspconfig.util')
+
+if not configs.helm_ls then
+	configs.helm_ls = {
+		default_config = {
+			cmd = { "helm_ls", "serve" },
+			filetypes = { 'helm' },
+			root_dir = function(fname)
+				return util.root_pattern('Chart.yaml')(fname)
+			end,
+		},
+	}
+end
+
+lspconfig.helm_ls.setup {
+	filetypes = { "helm" },
+	cmd = { "helm_ls", "serve" },
+}
+
+local on_attach = function(client, bufnr)
+	-- other stuff --
+	require("tailwindcss-colors").buf_attach(bufnr)
+end
+require 'lspconfig'.tailwindcss.setup({
+	-- on_attach = on_attach,
+	capabilities = capabilities,
+	filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug",
+		"typescriptreact", "vue" },
+	on_attach = on_attach,
+})
 require 'lspconfig'.svelte.setup {
 	filetypes = { "svelte", "html" },
 	capabilities = capabilities,
@@ -65,7 +97,7 @@ require 'lspconfig'.svelte.setup {
 	end
 }
 require 'lspconfig'.rome.setup {
-	filetypes = { "svelte", "html","ts","js" },
+	filetypes = { "svelte", "html", "ts", "js" },
 	capabilities = capabilities,
 	on_attach = function()
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
@@ -73,19 +105,19 @@ require 'lspconfig'.rome.setup {
 	end
 }
 require 'lspconfig'.emmet_ls.setup({
-    -- on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
-    init_options = {
-      html = {
-        options = {
-          -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-          ["bem.enabled"] = true,
-        },
-      },
-    }
+	-- on_attach = on_attach,
+	capabilities = capabilities,
+	filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug",
+		"typescriptreact", "vue" },
+	init_options = {
+		html = {
+			options = {
+				-- for possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#l79-l267
+				["bem.enabled"] = true,
+			},
+		},
+	}
 })
-
 -- Setup nvim-cmp.
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
@@ -188,6 +220,7 @@ require('telescope').load_extension('file_browser')
 require('telescope').load_extension('ui-select')
 require('telescope').load_extension('dap')
 require('telescope').load_extension('harpoon')
+-- require('telescope').load_extension('macros')
 -- local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
 local telescope = require("telescope")
@@ -208,8 +241,10 @@ require 'nvim-treesitter.configs'.setup {
 
 	highlight = {
 		enable = true,
-
 	},
+	-- context_commenting= {
+	-- 	enable = true,
+	-- },
 }
 
 --- Setup Lualine
@@ -373,5 +408,37 @@ require('gitsigns').setup({
 	current_line_blame_opts = {
 		virt_text_pos = 'right_align',
 		delay = 1,
-	}
+	},
+	current_line_blame_formatter = '<author>'
 })
+--- Setup Tailwind Sorter
+-- require('tailwind-sorter').setup()
+-- Setup Wilder
+local wilder = require('wilder')
+wilder.setup({ modes = { ':', '/', '?' } })
+wilder.set_option('renderer', wilder.popupmenu_renderer({
+	pumblend = 20,
+}))
+wilder.set_option('renderer', wilder.popupmenu_renderer({
+	highlighter = wilder.basic_highlighter(),
+	left = { ' ', wilder.popupmenu_devicons() },
+	right = { ' ', wilder.popupmenu_scrollbar() },
+}))
+wilder.set_option('renderer', wilder.popupmenu_renderer(
+	wilder.popupmenu_border_theme({
+		highlights = {
+			border = 'Normal', -- highlight to use for the border
+		},
+		-- 'single', 'double', 'rounded' or 'solid'
+		-- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
+		border = 'rounded',
+	})
+))
+-- Setup NeoComposer
+-- require("lualine").setup({
+-- 	winbar = {
+-- 		lualine_z = {
+-- 			{ require('NeoComposer.ui').status_recording() },
+-- 		},
+-- 	}
+-- })
