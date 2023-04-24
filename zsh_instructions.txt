@@ -42,6 +42,7 @@ Debuggers
 25. Install duf
 26. install bottom
 27. install topgrade
+28. Install gping
 
 For Mac iTerm use color preset for vim
 Must install nerdfont for lots of stuff to work

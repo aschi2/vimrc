@@ -28,6 +28,7 @@ brew install kubectx
 brew install zellij
 brew install bottom
 brew install topgrade
+brew install gping
 
 # brew install pueue
 # brew install hyperfine

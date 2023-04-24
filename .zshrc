@@ -212,6 +212,9 @@ alias ls=exa
 alias ggc="g rev-parse HEAD"
 # use bottome instead of top
 alias top=btm
+# use gping instead of ping
+alias ping=gping
+
 
 #lazygit
 lg()
