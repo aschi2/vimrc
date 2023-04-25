@@ -199,7 +199,7 @@ cmp.setup({
 			{ name = 'copilot' }, -- For copilot
 			{ name = 'nvim_lsp' },
 			{ name = 'nvim_lsp_signature_help' },
-			-- { name = 'vsnip' }, -- For vsnip users.
+			{ name = 'vsnip' }, -- For vsnip users.
 			{ name = 'path' }
 			-- { name = 'luasnip' }, -- For luasnip users.
 			-- { name = 'ultisnips' }, -- For ultisnips users.

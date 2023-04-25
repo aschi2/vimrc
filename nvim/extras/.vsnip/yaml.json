@@ -1,0 +1,56 @@
+{
+	"kustomization": {
+		"prefix": "k-kustomization",
+		"description": "Kustomization.yaml Boilerplate",
+		"body": [
+			"apiVersion: kustomize.config.k8s.io/v1beta1",
+			"kind: Kustomization",
+			"bases:",
+			" - ${1:../base}",
+			"resources:",
+			" - ${2:deployment.yaml}",
+			"patches:",
+			" - ${3:patch.yaml}"
+
+		]
+
+	},
+	"json6902 patch": {
+		"prefix": "k-json6902-patch",
+		"description": "JSON6902 Patch",
+		"body": [
+			"- op: ${1|add,remove #remove takes no value,replace|}",
+			"  path: ${2:/path/to/field}",
+			"  value: ${3:value}"
+		]
+	},
+	"external-secret": {
+		"prefix": "k-external-secret",
+		"description": "External Secret",
+		"body": [
+			"apiVersion: kubernetes-client.io/v1",
+			"kind: ExternalSecret",
+			"metadata:",
+			"  name: ${1:secret-name}",
+			"spec:",
+			"  refreshInterval: 1h",
+			"  secretStoreRef:",
+			"    name: ${2:vault-backend}",
+			"    kind: ${3|ClusterSecretStore,SecretStore|}",
+			"  data:",
+			"  - secretKey: ${4:secret-key}",
+			"    remoteRef:",
+			"      key: ${5:secret-key}",
+			"      property: ${6:property-name}",
+			"  target:",
+			"    template:",
+			"      type: ${7|Opaque,kubernetes.io/dockercfg,kubernetes.io/dockercfgjson,kubernetes.io/basic-auth,kubernetes.io/ssh-auth,kubernetes.io/tls,bootstrap.kubernetes.io/token|}",
+			"      data:",
+			"        ${8:ENV_KEY}: '{{ .${4:secret-key} }}'"
+
+		]
+		
+	}
+
+
+}

@@ -5,6 +5,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 rm ~/.zshrc
 ln -s ~/vimrc/.zshrc ~/.zshrc
 ln -s ~/vimrc/zellij ~/.config/zellij
+ln -s ~/vimrc/nvim/extras/.vsnip ~/.vsnip
 #Install Powerline 10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 #Install plugins
