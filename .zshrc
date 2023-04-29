@@ -256,9 +256,6 @@ setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_DUPS
 
-#Homebrew github token
-export HOMEBREW_GITHUB_API_TOKEN=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
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/vault vault
 
