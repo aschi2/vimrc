@@ -87,6 +87,7 @@ plugins=(
   web-search
   you-should-use
   vi-mode
+  thefuck
 )
 
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
@@ -265,3 +266,5 @@ export MCFLY_KEY_SCHEME=vim
 export MCFLY_FUZZY=2
 export MCFLY_RESULTS=50
 export MCFLY_INTERFACE_VIEW=BOTTOM
+
+eval $(thefuck --alias)

@@ -44,7 +44,8 @@ Debuggers
 27. install topgrade
 28. Install gping
 29. Install Mcfly
-
+30. Install tldr
+31. Install thefuck
 For Mac iTerm use color preset for vim
 Must install nerdfont for lots of stuff to work
 Use

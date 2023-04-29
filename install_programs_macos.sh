@@ -33,6 +33,8 @@ brew install topgrade
 brew install gping
 brew tap cantino/mcfly
 brew install cantino/mcfly/mcfly
+brew install tldr
+brew install thefuck
 
 # brew install pueue
 # brew install hyperfine
