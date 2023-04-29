@@ -30,6 +30,8 @@ brew install zellij
 brew install bottom
 brew install topgrade
 brew install gping
+brew tap cantino/mcfly
+brew install cantino/mcfly/mcfly
 
 # brew install pueue
 # brew install hyperfine

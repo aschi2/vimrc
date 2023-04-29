@@ -261,3 +261,10 @@ export HOMEBREW_GITHUB_API_TOKEN=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
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/vault vault
+
+#mcfly
+eval "$(mcfly init zsh)"
+export MCFLY_KEY_SCHEME=vim
+export MCFLY_FUZZY=2
+export MCFLY_RESULTS=50
+export MCFLY_INTERFACE_VIEW=BOTTOM

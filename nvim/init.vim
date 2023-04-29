@@ -27,7 +27,10 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 " Plug 'hrsh7th/cmp-copilot'
-Plug 'zbirenbaum/copilot-cmp'
+Plug 'aschi2/cmp-copilot'
+" Plug 'zbirenbaum/copilot-cmp'
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
+Plug 'saadparwaiz1/cmp_luasnip'", { 'branch': 'feat/choice-integration'}
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -42,8 +45,8 @@ Plug 'windwp/nvim-autopairs'
 Plug 'FooSoft/vim-argwrap/'
 " Plug 'dbeniamine/cheat.sh-vim'
 Plug 'AckslD/nvim-neoclip.lua'
-" Plug 'github/copilot.vim'
-Plug 'zbirenbaum/copilot.lua'
+Plug 'github/copilot.vim'
+" Plug 'zbirenbaum/copilot.lua'
 Plug 'ecthelionvi/NeoComposer.nvim'
 " Navigation Plugins
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
@@ -73,11 +76,11 @@ if has('nvim')
   Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 else
   Plug 'gelguy/wilder.nvim'
-
   " To use Python remote plugin features in Vim, can be skipped
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'folke/which-key.nvim'
 " Aesthetic Plugins
 Plug 'romgrk/barbar.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -166,17 +169,10 @@ set undofile
 set shiftround
 
 " vsnip
-" imap <expr> <C-e>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-e>'
-" smap <expr> <C-e>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-e>'
-" imap <expr> <C-w>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-w>'
-" smap <expr> <C-w>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-w>'
-" imap <expr> <C-b> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-b>'
-" smap <expr> <C-b> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-b>'
-"
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+" smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+" imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
 au BufRead,BufNewFile *.json set filetype=json
 au BufRead,BufNewFile Jenkinsfile set filetype=groovy
@@ -360,6 +356,9 @@ nnoremap <silent> <leader>gg :LazyGit<CR>
 nnoremap <leader>m :lua require('harpoon.mark').add_file()<CR>
 " nnoremap <leader>sm :lua require("harpoon.ui").toggle_quick_menu()<CR>
 nnoremap <leader>sm :Telescope harpoon marks<CR>
+
+"quick source
+nnoremap <leader><leader>s :source ~/vimrc/nvim/init.vim<CR>
 
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 
