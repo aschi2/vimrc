@@ -50,6 +50,69 @@
 
 		]
 		
+	},
+
+	"argocd-helm-application": {
+		"prefix": "k-argo-helm-app",
+		"description": "ArgoCD Helm Application",
+		"body": [
+			"apiVersion: argoproj.io/v1alpha1",
+			"kind: Application",
+			"metadata:",
+			"  name: ${1}",
+			"  namespace: argocd",
+			"spec:",
+			"  project: default",
+			"  source:",
+			"    path: sites/base/wave-${2}/${3}/",
+			"    repoURL: git@github.com:AWM-DEV/gitops.git",
+			"    targetRevision: master",
+			"    helm:",
+			"      releaseName: ${3}",
+			"      valueFiles:",
+			"        - ../../../${4}/${3}/values.yaml",
+			"  destination:",
+			"    name: ${4}",
+			"    namespace: ${3}",
+			"  syncPolicy:" ,
+			"    automated:",
+			"      prune: true",
+			"      selfHeal: true",
+			"    syncOptions:",
+			"      - CreateNamespace=true"
+
+
+		]
+		
+	},
+	"argocd-application": {
+		"prefix": "k-argo-app",
+		"description": "ArgoCD Application",
+		"body": [
+			"apiVersion: argoproj.io/v1alpha1",
+			"kind: Application",
+			"metadata:",
+			"  name: ${1}",
+			"  namespace: argocd",
+			"spec:",
+			"  project: default",
+			"  source:",
+			"    path: sites/base/wave-${2}/${3}/",
+			"    repoURL: git@github.com:AWM-DEV/gitops.git",
+			"    targetRevision: master",
+			"  destination:",
+			"    name: ${4}",
+			"    namespace: ${5}",
+			"  syncPolicy:" ,
+			"    automated:",
+			"      prune: true",
+			"      selfHeal: true",
+			"    syncOptions:",
+			"      - CreateNamespace=true"
+
+
+		]
+		
 	}
 
 
