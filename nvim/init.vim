@@ -116,6 +116,8 @@ Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
 " Plug 'segeljakt/vim-silicon'
 Plug 'lewis6991/impatient.nvim'
 Plug 'dstein64/vim-startuptime'
+Plug 'pwntester/octo.nvim'
+Plug 'goolord/alpha-nvim'
 call plug#end()
 
 "Import Lua
@@ -209,7 +211,7 @@ let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
 "remap for argwrap""
 nnoremap <silent> <leader>a :ArgWrap<CR>
 
-" map autoformat to space-p
+" map autoformat to space-f
 nnoremap <leader>f :lua vim.lsp.buf.format() <CR>
 
 
@@ -360,6 +362,9 @@ nnoremap <leader>sm :Telescope harpoon marks<CR>
 "quick source
 nnoremap <leader><leader>s :source ~/vimrc/nvim/init.vim<CR>
 
+" Search All Open Issues in AWM-DEV
+nnoremap <leader>si :Octo issue search org:AWM-DEV state:open<CR>
+nnoremap <leader>ic :Octo issue create<CR>
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 
 "
