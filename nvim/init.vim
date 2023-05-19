@@ -28,6 +28,8 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 " Plug 'hrsh7th/cmp-copilot'
 Plug 'aschi2/cmp-copilot'
+Plug 'jackMort/ChatGPT.nvim'
+
 " Plug 'zbirenbaum/copilot-cmp'
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 Plug 'saadparwaiz1/cmp_luasnip'", { 'branch': 'feat/choice-integration'}
@@ -364,7 +366,9 @@ nnoremap <leader><leader>s :source ~/vimrc/nvim/init.vim<CR>
 
 " Search All Open Issues in AWM-DEV
 nnoremap <leader>si :Octo issue search org:AWM-DEV state:open<CR>
+nnoremap <leader>il :Octo issue list<CR>
 nnoremap <leader>ic :Octo issue create<CR>
+
 "Grave Yard, Stuff not used but for some reason I don't want to delete
 
 "

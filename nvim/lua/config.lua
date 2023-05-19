@@ -601,3 +601,8 @@ require "octo".setup({
 })
 --- setup alpha.nvim
 require('alpha').setup(require('custom-alpha').config)
+--- tune matchup
+vim.g.matchup_matchparen_deferred = 1
+vim.g.matchup_matchparen_deferred_show_delay = 300
+--- setup chatgpt
+require('chatgpt').setup({})

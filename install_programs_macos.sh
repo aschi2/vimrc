@@ -35,6 +35,9 @@ brew tap cantino/mcfly
 brew install cantino/mcfly/mcfly
 brew install tldr
 brew install thefuck
+brew install jq
+curl -o ~/.lazyshell.zsh https://raw.githubusercontent.com/not-poma/lazyshell/master/lazyshell.zsh
+
 
 # brew install pueue
 # brew install hyperfine

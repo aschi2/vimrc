@@ -268,3 +268,8 @@ export MCFLY_RESULTS=50
 export MCFLY_INTERFACE_VIEW=BOTTOM
 
 eval $(thefuck --alias)
+
+source ~/vimrc/creds/credentials.zsh
+
+export PATH=/Users/austin/.tiup/bin:$PATH
+[ -f ~/.lazyshell.zsh ] && source ~/.lazyshell.zsh
