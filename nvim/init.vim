@@ -42,7 +42,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'towolf/vim-helm'
 Plug 'someone-stole-my-name/yaml-companion.nvim'
 " Formatting and Code Insertion Plugins
-Plug 'jose-elias-alvarez/null-ls.nvim'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'nvimtools/none-ls.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'FooSoft/vim-argwrap/'
 " Plug 'dbeniamine/cheat.sh-vim'
@@ -51,7 +52,7 @@ Plug 'github/copilot.vim'
 " Plug 'zbirenbaum/copilot.lua'
 Plug 'ecthelionvi/NeoComposer.nvim'
 " Navigation Plugins
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'

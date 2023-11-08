@@ -4,6 +4,13 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 require("mason").setup()
 require("mason-lspconfig").setup()
 
+require 'lspconfig'.rust_analyzer.setup {
+	capabilities = capabilities,
+	on_attach = function()
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
+	end
+}
 require 'lspconfig'.pyright.setup {
 	capabilities = capabilities,
 	on_attach = function()
@@ -89,7 +96,6 @@ local on_attach = function(client, bufnr)
 	require("tailwindcss-colors").buf_attach(bufnr)
 end
 require 'lspconfig'.tailwindcss.setup({
-	-- on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug",
 		"typescriptreact", "vue" },
@@ -103,14 +109,14 @@ require 'lspconfig'.svelte.setup {
 		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
 	end
 }
-require 'lspconfig'.rome.setup {
-	filetypes = { "svelte", "html", "ts", "js" },
-	capabilities = capabilities,
-	on_attach = function()
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
-	end
-}
+-- require 'lspconfig'.rome.setup {
+-- 	filetypes = { "svelte", "html", "ts", "js" },
+-- 	capabilities = capabilities,
+-- 	on_attach = function()
+-- 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+-- 		vim.keymap.set("n", "<leader>R", vim.lsp.buf.rename, { buffer = 0 })
+-- 	end
+-- }
 require 'lspconfig'.emmet_ls.setup({
 	-- on_attach = on_attach,
 	capabilities = capabilities,
@@ -374,19 +380,24 @@ require("catppuccin").setup({
 	}
 })
 -- setup indent-blankline
-require("indent_blankline").setup {
-	space_char_blankline = " ",
-	show_current_context = true,
-	show_current_context_start = true,
-}
+-- require("indent_blankline").setup {
+-- 	space_char_blankline = " ",
+-- 	show_current_context = true,
+-- 	show_current_context_start = true,
+-- }
+require("ibl").setup()
 --- setup null-ls
 require("null-ls").setup({
 	sources = {
 		require('null-ls').builtins.diagnostics.ruff,
 		require('null-ls').builtins.formatting.black,
 		require('null-ls').builtins.formatting.isort,
+		require('null-ls').builtins.formatting.prettier.with({
+			extra_filetypes = { "svelte"}
+		}),
 
 	},
+	on_attach = on_attach
 })
 --- Setup lsp_lines
 require("lsp_lines").setup()
