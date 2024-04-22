@@ -286,7 +286,7 @@ cmp.setup({
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('ui-select')
-require('telescope').load_extension('dap')
+-- require('telescope').load_extension('dap')
 require('telescope').load_extension('harpoon')
 -- require('telescope').load_extension('macros')
 -- local actions = require("telescope.actions")
@@ -324,15 +324,15 @@ require('lualine').setup({
 })
 
 --- Setup Dap
-require('dap')
-vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
-vim.fn.sign_define('DapStopped', { text = '👉', texthl = '', linehl = '', numhl = '' })
-vim.fn.sign_define('DapBreakpointCondition', { text = '❓', texthl = '', linehl = '', numhl = '' })
-vim.fn.sign_define('DapBreakpointRejected', { text = '🚫', texthl = '', linehl = '', numhl = '' })
-require('dap-python').setup('/opt/homebrew/bin/python3')
-require('dap-go').setup()
-require('dapui').setup()
-require("nvim-dap-virtual-text").setup()
+-- require('dap')
+-- vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+-- vim.fn.sign_define('DapStopped', { text = '👉', texthl = '', linehl = '', numhl = '' })
+-- vim.fn.sign_define('DapBreakpointCondition', { text = '❓', texthl = '', linehl = '', numhl = '' })
+-- vim.fn.sign_define('DapBreakpointRejected', { text = '🚫', texthl = '', linehl = '', numhl = '' })
+-- require('dap-python').setup('/opt/homebrew/bin/python3')
+-- require('dap-go').setup()
+-- require('dapui').setup()
+-- require("nvim-dap-virtual-text").setup()
 
 
 --- Setup Autopairs
@@ -389,23 +389,23 @@ require("ibl").setup()
 --- setup null-ls
 require("null-ls").setup({
 	sources = {
-		require('null-ls').builtins.diagnostics.ruff,
+		-- require('null-ls').builtins.diagnostics.ruff,
 		require('null-ls').builtins.formatting.black,
 		require('null-ls').builtins.formatting.isort,
 		require('null-ls').builtins.formatting.prettier.with({
-			extra_filetypes = { "svelte"}
+			extra_filetypes = { "svelte" }
 		}),
 
 	},
 	on_attach = on_attach
 })
 --- Setup lsp_lines
-require("lsp_lines").setup()
-vim.diagnostic.config({
-	virtual_text = false,
-	virtual_lines = { only_current_line = true },
-	update_in_insert = true,
-})
+-- require("lsp_lines").setup()
+-- vim.diagnostic.config({
+-- 	virtual_text = false,
+-- 	virtual_lines = { only_current_line = true },
+-- 	update_in_insert = true,
+-- })
 
 
 --- Setup Silicon.lua
@@ -550,8 +550,13 @@ local function window_for_choiceNode(choiceNode)
 
 	-- shows window at a beginning of choiceNode.
 	local win = vim.api.nvim_open_win(buf, false, {
-		relative = "win", width = w, height = h, bufpos = choiceNode.mark:pos_begin_end(), style = "minimal",
-		border = 'rounded' })
+		relative = "win",
+		width = w,
+		height = h,
+		bufpos = choiceNode.mark:pos_begin_end(),
+		style = "minimal",
+		border = 'rounded'
+	})
 
 	-- return with 3 main important so we can use them again
 	return { win_id = win, extmark = extmark, buf = buf }
