@@ -88,6 +88,7 @@ plugins=(
   you-should-use
   vi-mode
   thefuck
+  direnv
 )
 
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
@@ -488,3 +489,5 @@ if [ "$funcstack[1]" = "_kubebuilder" ]; then
 fi
 
 export GPG_TTY=$(tty)
+
+
