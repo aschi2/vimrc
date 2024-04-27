@@ -35,6 +35,8 @@ brew install cantino/mcfly/mcfly
 brew install tldr
 brew install thefuck
 brew install jq
+brew install direnv
+brew install dua
 
 
 # Install Krew

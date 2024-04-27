@@ -209,7 +209,7 @@ alias df=duf
 #use fd instead of find
 alias find=fd
 # make exa default
-alias ls=exa
+alias ls="eza --icons=auto"
 # make it easy to get the last commit has
 alias ggc="g rev-parse HEAD"
 # use bottome instead of top
