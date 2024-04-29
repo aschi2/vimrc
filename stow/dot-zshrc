@@ -491,3 +491,8 @@ fi
 export GPG_TTY=$(tty)
 
 
+
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# add openapi key to zshrc
+source ~/vimrc/creds/credentials.zsh

@@ -3,3 +3,4 @@
 nvim/extras/schemas
 tags
 creds/
+.DS_Store
